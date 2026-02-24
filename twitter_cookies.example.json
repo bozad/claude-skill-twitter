@@ -1,0 +1,4 @@
+[
+  {"name": "auth_token", "value": "YOUR_AUTH_TOKEN_HERE"},
+  {"name": "ct0", "value": "YOUR_CT0_CSRF_TOKEN_HERE"}
+]
