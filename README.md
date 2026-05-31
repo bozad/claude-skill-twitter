@@ -78,6 +78,44 @@ cp -r .claude/skills/twitter-x-gtm ~/.openclaw/skills/
 
 Copy `rnet_twitter.py` and the SKILL.md files you need into your project.
 
+## Optional GetXAPI Backend
+
+The default path uses `rnet_twitter.py` with local browser cookies. If you
+prefer API-key based access for research agents, monitors, or shared team
+workflows, this repo also includes `getxapi_backend.py`. It exposes the same
+async methods used in the examples:
+
+- `search_tweets(query, count, product)`
+- `get_user_by_screen_name(screen_name)`
+- `get_user_tweets(user_id, count)`
+- `create_tweet(text, reply_to=None)`
+- `favorite_tweet(tweet_id)`
+- `delete_tweet(tweet_id)`
+
+Configure:
+
+```bash
+export GETXAPI_API_KEY="..."
+export GETXAPI_BASE_URL="https://api.getxapi.com"
+```
+
+Then swap the import in scripts that need the managed backend:
+
+```python
+from getxapi_backend import GetXAPIClient
+
+client = GetXAPIClient()
+tweets = await client.search_tweets("AI agents", count=50, product="Top")
+```
+
+Write actions stay off by default. Enable them only for explicit posting,
+replying, liking, or deletion workflows:
+
+```bash
+export GETXAPI_ACCOUNT="@your_account"
+export GETXAPI_ENABLE_ACTIONS=true
+```
+
 ## Prerequisites
 
 ### 1. Install rnet
